@@ -98,11 +98,10 @@ us - imperial units
 
 ### UI
 
-<div style="text-align:center">
-	<img src ="https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Main%20Screen.png" />
-	<img src ="https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Details.png" />
-	<img src ="https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Add%20New%20Location.png" />
-</div>
+* https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Main%20Screen.png
+* https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Details.png
+* https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Add%20New%20Location.png
+
 
 ### Review
 
