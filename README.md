@@ -98,9 +98,7 @@ us - imperial units
 
 ### UI
 
-* https://bytebucket.org/draewil/interview-ios/raw/27b54f9c0ee47339469be824b7c385b72a2d4346/assets/Prometheus%20Main%20Screen.png
-* https://bytebucket.org/draewil/interview-ios/raw/27b54f9c0ee47339469be824b7c385b72a2d4346/assets/Prometheus%20Details.png
-* https://bytebucket.org/draewil/interview-ios/raw/3a6eabacf79ff13c03d797e8f5de447d14316ef0/assets/Prometheus%20Add%20New%20Location.png
+![
 
 
 ### Review
@@ -110,7 +108,7 @@ The aspects of your code we will assess include:
 
 * **Architecture**: how clean is the separation between layers
 * **Correctness**: does the application do what was asked? 
-* **Code quality**: is the code simple, easy to understand, and maintainable? Are there any code smells or other red flags? Does object-oriented code follows principles such as the single responsibility principle? Is the coding style consistent with the language's guidelines? Is it consistent throughout the codebase?
+* **Code qu](https://bitbucket.org/repo/baaBLKo/images/3065658623-Prometheus%20Main%20Screen.png)ality**: is the code simple, easy to understand, and maintainable? Are there any code smells or other red flags? Does object-oriented code follows principles such as the single responsibility principle? Is the coding style consistent with the language's guidelines? Is it consistent throughout the codebase?
 * **Technical choices**: do choices of libraries, architecture etc. seem appropriate for the chosen application?
 
 
