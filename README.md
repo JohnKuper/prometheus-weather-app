@@ -3,7 +3,7 @@ Prometheus is an application to predict future by applying advanced artificial i
 
 ## iOS Technical Test
 
-We have created a small technical test for you to showcase how you work. Your task will be to create a small iOS Application that should request a weather of user requests locations and show that information to the user.
+We have created a small technical test for you to showcase how you work. Your task will be to create a small iOS Application that should request weather for user requests locations and show that information to the user.
 
 ### Challenges
 
