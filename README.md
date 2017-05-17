@@ -98,7 +98,8 @@ us - imperial units
 
 ### UI
 
-![
+* https://bytebucket.org/draewil/interview-ios/raw/f8725e2afa8e8f838e661cd38167c537896253f0/assets/Prometheus%20Main%20Screen.png
+* https://bytebucket.org/draewil/interview-ios/raw/f8725e2afa8e8f838e661cd38167c537896253f0/assets/Prometheus%20Add%20New%20Location%20and%20Edit%20existing%20location.png
 
 
 ### Review
