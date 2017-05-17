@@ -109,7 +109,7 @@ The aspects of your code we will assess include:
 
 * **Architecture**: how clean is the separation between layers
 * **Correctness**: does the application do what was asked? 
-* **Code qu](https://bitbucket.org/repo/baaBLKo/images/3065658623-Prometheus%20Main%20Screen.png)ality**: is the code simple, easy to understand, and maintainable? Are there any code smells or other red flags? Does object-oriented code follows principles such as the single responsibility principle? Is the coding style consistent with the language's guidelines? Is it consistent throughout the codebase?
+* **Code quality**: is the code simple, easy to understand, and maintainable? Are there any code smells or other red flags? Does object-oriented code follows principles such as the single responsibility principle? Is the coding style consistent with the language's guidelines? Is it consistent throughout the codebase?
 * **Technical choices**: do choices of libraries, architecture etc. seem appropriate for the chosen application?
 
 
