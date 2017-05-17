@@ -25,7 +25,8 @@ The following endpoint `https://prometheus-api.draewil.net/[APIKEY]/[latitude],[
 
 `Authorization API key: c6987ba1fcc7450aea9cff041bb42825`
 
-#### GET `https://prometheus-api.draewil.net/c6987ba1fcc7450aea9cff041bb42825/51.500334,-0.085013`
+#### GET https://prometheus-api.draewil.net/c6987ba1fcc7450aea9cff041bb42825/51.500334,-0.085013
+
 ```json 
 [
   {
