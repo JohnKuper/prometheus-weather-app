@@ -1,20 +1,18 @@
 # Prometheus
-Prometheus is an application to predict future by applying advanced artificial intelligence algorithms. You are hired as a new iOS developer to maintain and improve it.
+Prometheus is an application to predict future by applying advanced artificial intelligence algorithms. You are hired as a new Android developer to maintain and improve it.
 
-## iOS Technical Test
+## Android Technical Test
 
-We have created a small technical test for you to showcase how you work. Your task will be to create a small iOS Application that should request weather for user requests locations and show that information to the user.
+We have created a small technical test for you to showcase how you work. Your task will be to create a small Android Application that should request weather for user requests locations and show that information to the user.
 
 ### Challenges
 
-* You are required to code in Swift 3.
-* Fetch and parse JSON data into `structs` from API.
 * Implement cities list and weather detail screen with UX provided.
 * User could request a report for any location (by pointing location on the map).
 
 #### Bonus Points
 
-* Make a persistent layer with Core Data.
+* Make a persistent data layer.
 * Style example with provided UI.
 * Implement weather feed/history screen.
 * Implement change of units and language
@@ -99,9 +97,8 @@ us - imperial units
 
 ### UI
 
-* https://bytebucket.org/draewil/interview-ios/raw/f8725e2afa8e8f838e661cd38167c537896253f0/assets/Prometheus%20Main%20Screen.png
-* https://bytebucket.org/draewil/interview-ios/raw/f8725e2afa8e8f838e661cd38167c537896253f0/assets/Prometheus%20Add%20New%20Location%20and%20Edit%20existing%20location.png
-
+* https://raw.githubusercontent.com/DraewilTech/interview-assets/master/prometheus-android-mainscreen.png
+* https://raw.githubusercontent.com/DraewilTech/interview-assets/master/prometheus-android-mainscreen.png
 
 ### Review
 
