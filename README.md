@@ -98,7 +98,7 @@ us - imperial units
 ### UI
 
 * https://raw.githubusercontent.com/DraewilTech/interview-assets/master/prometheus-android-mainscreen.png
-* https://raw.githubusercontent.com/DraewilTech/interview-assets/master/prometheus-android-mainscreen.png
+* https://raw.githubusercontent.com/DraewilTech/interview-assets/master/prometheus-android-addlocation.png
 
 ### Review
 
