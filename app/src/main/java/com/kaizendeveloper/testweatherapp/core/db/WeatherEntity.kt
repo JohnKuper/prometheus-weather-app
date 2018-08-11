@@ -8,8 +8,8 @@ import com.kaizendeveloper.testweatherapp.feature.api.WeatherData
     primaryKeys = ["latitude", "longitude"]
 )
 data class WeatherEntity(
-    val latitude: Float,
-    val longitude: Float,
+    val latitude: Double,
+    val longitude: Double,
     val timezone: String,
     val temperature: Float,
     val currentlySummary: String,

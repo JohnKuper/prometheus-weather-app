@@ -16,7 +16,8 @@ class NetworkWeatherRepository @Inject constructor(
 
     val weatherEntities: LiveData<List<WeatherEntity>> = weatherDao.getAll()
 
-    override fun getWeather(location: LatLng): Single<RepositoryResponse<WeatherData>> {
+    //TODO add correct error handling
+    override fun addLocation(location: LatLng): Single<RepositoryResponse<WeatherData>> {
         return weatherService.getWeather(
             "c6987ba1fcc7450aea9cff041bb42825",
             "${location.latitude},${location.longitude}"

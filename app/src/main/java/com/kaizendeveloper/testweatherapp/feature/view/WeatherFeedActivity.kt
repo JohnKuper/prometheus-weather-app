@@ -14,6 +14,7 @@ import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
 import kotlinx.android.synthetic.main.activity_weather_feed.feed
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_weather_feed.add_location as addLocation
+import kotlinx.android.synthetic.main.activity_weather_feed.refresh_layout as refreshLayout
 
 const val PLACE_PICKER_REQUEST = 1
 
@@ -47,6 +48,7 @@ class WeatherFeedActivity : AppCompatActivity() {
     private fun observeViewModel() {
         weatherFeedViewModel = viewModel(viewModelFactory) {
             observe(weatherFeed, ::populateFeed)
+            observe(inProgress) { updateProgress(it ?: false) }
         }
     }
 
@@ -60,9 +62,17 @@ class WeatherFeedActivity : AppCompatActivity() {
             val builder = PlacePicker.IntentBuilder()
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
         }
+
+        refreshLayout.setOnRefreshListener {
+            weatherFeedViewModel.updateFeed()
+        }
     }
 
     private fun populateFeed(list: List<WeatherItemData>?) {
         weatherAdapter.submitList(list)
+    }
+
+    private fun updateProgress(inProgress: Boolean) {
+        refreshLayout.isRefreshing = inProgress
     }
 }

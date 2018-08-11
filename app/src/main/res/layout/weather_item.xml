@@ -47,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/spaceM"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/current_summary"
         tools:text="Light Rain stopping in 12 min"/>
 
