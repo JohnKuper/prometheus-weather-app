@@ -1,6 +1,7 @@
 package com.kaizendeveloper.testweatherapp.feature.api
 
 import android.arch.lifecycle.LiveData
+import android.database.sqlite.SQLiteConstraintException
 import com.google.android.gms.maps.model.LatLng
 import com.kaizendeveloper.testweatherapp.BuildConfig
 import com.kaizendeveloper.testweatherapp.core.db.WeatherDao
@@ -38,10 +39,12 @@ class NetworkWeatherRepository @Inject constructor(
             }
     }
 
+    //TODO extract to ErrorHandler
     private fun handleError(throwable: Throwable): RepositoryResponse<WeatherData> {
         val failure = when (throwable) {
-            is NoConnectivityException -> Failure.NetworkConnection
-            else -> Failure.ServerError
+            is NoConnectivityException -> Failure.NetworkConnection()
+            is SQLiteConstraintException -> Failure.DuplicatedLocation()
+            else -> Failure.ServerError()
         }
         return RepositoryResponse.failure(failure)
     }

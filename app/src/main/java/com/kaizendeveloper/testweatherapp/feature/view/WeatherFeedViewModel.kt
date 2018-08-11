@@ -35,13 +35,13 @@ class WeatherFeedViewModel @Inject constructor(
     }
 
     fun updateFeed() {
-        Observable
-            .fromIterable(weatherRepository.weatherEntities.requireValue())
-            .doOnSubscribe { setProgress(true) }
-            .doAfterTerminate { setProgress(false) }
+        Observable.just(weatherRepository.weatherEntities.requireValue())
+            .flatMapIterable { it }
             .flatMapSingle {
                 weatherRepository.updateLocation(LatLng(it.latitude, it.longitude))
             }
+            .doOnSubscribe { setProgress(true) }
+            .doAfterTerminate { setProgress(false) }
             .subscribeOn(Schedulers.io())
             .subscribe { it.handle(::handleError) }
     }

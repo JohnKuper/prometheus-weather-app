@@ -4,12 +4,14 @@ import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.kaizendeveloper.testweatherapp.R
 import com.kaizendeveloper.testweatherapp.WeatherApplication
+import com.kaizendeveloper.testweatherapp.core.extensions.failure
 import com.kaizendeveloper.testweatherapp.core.extensions.observe
 import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
@@ -51,7 +53,7 @@ class WeatherFeedActivity : AppCompatActivity() {
         weatherFeedViewModel = viewModel(viewModelFactory) {
             observe(weatherFeed, ::populateFeed)
             observe(inProgress) { updateProgress(it ?: false) }
-            observe(failure, ::showFailure)
+            failure(failure, ::handleFailure)
         }
     }
 
@@ -79,9 +81,15 @@ class WeatherFeedActivity : AppCompatActivity() {
         refreshLayout.isRefreshing = inProgress
     }
 
-    private fun showFailure(failure: Failure?) {
-        failure?.also {
-            Snackbar.make(refreshLayout, failure.message, Snackbar.LENGTH_SHORT).show()
+    private fun handleFailure(failure: Failure?) {
+        when (failure) {
+            is Failure.NetworkConnection -> showFailure(R.string.no_network_connection)
+            is Failure.ServerError -> showFailure(R.string.something_went_wrong)
+            is Failure.DuplicatedLocation -> showFailure(R.string.duplicated_location)
         }
+    }
+
+    private fun showFailure(@StringRes message: Int) {
+        Snackbar.make(refreshLayout, message, Snackbar.LENGTH_SHORT).show()
     }
 }

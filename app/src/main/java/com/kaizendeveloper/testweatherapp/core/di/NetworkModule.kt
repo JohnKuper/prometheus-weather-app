@@ -43,7 +43,7 @@ class NetworkModule {
     private fun createUnsafeClient(connectivityInterceptor: ConnectivityInterceptor): OkHttpClient {
         val clientBuilder = with(OkHttpClient.Builder()) {
             if (BuildConfig.DEBUG) {
-                addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
             }
             addInterceptor(connectivityInterceptor)
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
