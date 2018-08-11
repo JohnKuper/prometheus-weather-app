@@ -1,4 +1,4 @@
-package com.kaizendeveloper.testweatherapp
+package com.kaizendeveloper.testweatherapp.feature.view
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.kaizendeveloper.testweatherapp.R
 import kotlinx.android.synthetic.main.activity_weather_feed.button
 
 const val PLACE_PICKER_REQUEST = 1
