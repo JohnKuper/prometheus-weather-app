@@ -7,4 +7,5 @@ import io.reactivex.Single
 interface WeatherRepository {
 
     fun addLocation(location: LatLng): Single<RepositoryResponse<WeatherData>>
+    fun updateLocation(location: LatLng): Single<RepositoryResponse<WeatherData>>
 }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.google.android.gms.location.places.ui.PlacePicker
@@ -11,6 +12,7 @@ import com.kaizendeveloper.testweatherapp.R
 import com.kaizendeveloper.testweatherapp.WeatherApplication
 import com.kaizendeveloper.testweatherapp.core.extensions.observe
 import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
+import com.kaizendeveloper.testweatherapp.core.failure.Failure
 import kotlinx.android.synthetic.main.activity_weather_feed.feed
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_weather_feed.add_location as addLocation
@@ -49,6 +51,7 @@ class WeatherFeedActivity : AppCompatActivity() {
         weatherFeedViewModel = viewModel(viewModelFactory) {
             observe(weatherFeed, ::populateFeed)
             observe(inProgress) { updateProgress(it ?: false) }
+            observe(failure, ::showFailure)
         }
     }
 
@@ -74,5 +77,11 @@ class WeatherFeedActivity : AppCompatActivity() {
 
     private fun updateProgress(inProgress: Boolean) {
         refreshLayout.isRefreshing = inProgress
+    }
+
+    private fun showFailure(failure: Failure?) {
+        failure?.also {
+            Snackbar.make(refreshLayout, failure.message, Snackbar.LENGTH_SHORT).show()
+        }
     }
 }

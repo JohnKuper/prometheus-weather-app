@@ -2,6 +2,7 @@ package com.kaizendeveloper.testweatherapp.core.di
 
 import android.annotation.SuppressLint
 import com.kaizendeveloper.testweatherapp.BuildConfig
+import com.kaizendeveloper.testweatherapp.core.network.ConnectivityInterceptor
 import com.kaizendeveloper.testweatherapp.feature.api.WeatherApi
 import dagger.Module
 import dagger.Provides
@@ -21,12 +22,12 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(connectivityInterceptor: ConnectivityInterceptor): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://prometheus-api.draewil.net/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(createUnsafeClient())
+            .client(createUnsafeClient(connectivityInterceptor))
             .build()
     }
 
@@ -39,12 +40,12 @@ class NetworkModule {
      * obsolete.
      */
     @SuppressLint("TrustAllX509TrustManager")
-    private fun createUnsafeClient(): OkHttpClient {
+    private fun createUnsafeClient(connectivityInterceptor: ConnectivityInterceptor): OkHttpClient {
         val clientBuilder = with(OkHttpClient.Builder()) {
             if (BuildConfig.DEBUG) {
                 addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             }
-
+            addInterceptor(connectivityInterceptor)
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                 override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
                 override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}

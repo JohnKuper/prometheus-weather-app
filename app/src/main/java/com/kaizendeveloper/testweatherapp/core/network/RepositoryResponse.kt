@@ -7,13 +7,15 @@ class RepositoryResponse<out T> private constructor(
     private val _result: T? = null
 ) {
 
-    val error: Failure
-        get() = _error!!
+    private val isSuccessful: Boolean = _error == null && _result != null
 
-    val result: T
-        get() = _result!!
-
-    val isSuccessful: Boolean = _error == null
+    fun handle(onError: (Failure) -> Unit = {}, onResult: (T) -> Unit = {}) {
+        if (isSuccessful) {
+            onResult(_result!!)
+        } else {
+            onError(_error!!)
+        }
+    }
 
     companion object {
         fun <T> success(result: T): RepositoryResponse<T> =

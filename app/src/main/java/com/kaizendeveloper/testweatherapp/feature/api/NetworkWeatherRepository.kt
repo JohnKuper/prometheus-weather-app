@@ -2,9 +2,11 @@ package com.kaizendeveloper.testweatherapp.feature.api
 
 import android.arch.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
+import com.kaizendeveloper.testweatherapp.BuildConfig
 import com.kaizendeveloper.testweatherapp.core.db.WeatherDao
 import com.kaizendeveloper.testweatherapp.core.db.WeatherEntity
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
+import com.kaizendeveloper.testweatherapp.core.failure.NoConnectivityException
 import com.kaizendeveloper.testweatherapp.core.network.RepositoryResponse
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,17 +18,33 @@ class NetworkWeatherRepository @Inject constructor(
 
     val weatherEntities: LiveData<List<WeatherEntity>> = weatherDao.getAll()
 
-    //TODO add correct error handling
     override fun addLocation(location: LatLng): Single<RepositoryResponse<WeatherData>> {
-        return weatherService.getWeather(
-            "c6987ba1fcc7450aea9cff041bb42825",
-            "${location.latitude},${location.longitude}"
-        )
-            .doOnSuccess { weatherDao.insert(WeatherEntity.fromData(it)) }
+        return processWeather(location) { weatherDao.insert(WeatherEntity.fromData(it)) }
+    }
+
+    override fun updateLocation(location: LatLng): Single<RepositoryResponse<WeatherData>> {
+        return processWeather(location) { weatherDao.update(WeatherEntity.fromData(it)) }
+    }
+
+    private fun processWeather(
+        location: LatLng, onSuccess: (WeatherData) -> Unit
+    ): Single<RepositoryResponse<WeatherData>> {
+        return weatherService.getWeather(BuildConfig.API_KEY, location.concatCoordinates())
+            .doOnSuccess { onSuccess(it) }
             .flatMap {
                 Single.just(RepositoryResponse.success(it))
             }.onErrorResumeNext {
-                Single.just(RepositoryResponse.failure(Failure.ServerError()))
+                Single.just(handleError(it))
             }
     }
+
+    private fun handleError(throwable: Throwable): RepositoryResponse<WeatherData> {
+        val failure = when (throwable) {
+            is NoConnectivityException -> Failure.NetworkConnection
+            else -> Failure.ServerError
+        }
+        return RepositoryResponse.failure(failure)
+    }
+
+    private fun LatLng.concatCoordinates() = "$latitude,$longitude"
 }

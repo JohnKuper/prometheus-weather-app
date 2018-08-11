@@ -6,6 +6,7 @@ import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.kaizendeveloper.testweatherapp.core.extensions.requireValue
+import com.kaizendeveloper.testweatherapp.core.failure.Failure
 import com.kaizendeveloper.testweatherapp.feature.api.NetworkWeatherRepository
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -21,6 +22,7 @@ class WeatherFeedViewModel @Inject constructor(
             entities.map { WeatherItemData.fromEntity(it) }
         }
 
+    val failure: LiveData<Failure> = MutableLiveData()
     val inProgress: LiveData<Boolean> = MutableLiveData()
 
     fun addLocation(location: LatLng) {
@@ -29,21 +31,26 @@ class WeatherFeedViewModel @Inject constructor(
             .doOnSubscribe { setProgress(true) }
             .doAfterTerminate { setProgress(false) }
             .subscribeOn(Schedulers.io())
-            .subscribe()
+            .subscribe { response -> response.handle(::handleError) }
     }
 
     fun updateFeed() {
-        Observable.fromIterable(weatherRepository.weatherEntities.requireValue())
+        Observable
+            .fromIterable(weatherRepository.weatherEntities.requireValue())
             .doOnSubscribe { setProgress(true) }
             .doAfterTerminate { setProgress(false) }
             .flatMapSingle {
-                weatherRepository.addLocation(LatLng(it.latitude, it.longitude))
+                weatherRepository.updateLocation(LatLng(it.latitude, it.longitude))
             }
             .subscribeOn(Schedulers.io())
-            .subscribe()
+            .subscribe { it.handle(::handleError) }
     }
 
     private fun setProgress(progress: Boolean) {
         (inProgress as MutableLiveData).postValue(progress)
+    }
+
+    private fun handleError(failure: Failure) {
+        (this.failure as MutableLiveData).postValue(failure)
     }
 }
