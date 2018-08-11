@@ -39,6 +39,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibrary"
     implementation "com.android.support:support-media-compat:$supportLibrary"
     implementation "com.android.support:support-v4:$supportLibrary"
+    implementation "com.android.support:design:$supportLibrary"
+    implementation "com.android.support:recyclerview-v7:$supportLibrary"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     // Architecture components
@@ -54,6 +56,7 @@ dependencies {
 
     // Network
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version"
 
     // Google play services

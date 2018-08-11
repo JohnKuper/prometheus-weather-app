@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TestWeatherApp</string>
+
+    <string name="wind_speed_label">Wind Speed</string>
+    <string name="humidity_label">Humidity</string>
 </resources>

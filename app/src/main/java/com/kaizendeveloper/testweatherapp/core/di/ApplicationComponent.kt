@@ -1,13 +1,17 @@
 package com.kaizendeveloper.testweatherapp.core.di
 
 import android.app.Application
-import com.kaizendeveloper.testweatherapp.WeatherApplication
+import com.kaizendeveloper.testweatherapp.feature.view.WeatherFeedActivity
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component
+@Component(
+    modules = [
+        ApplicationModule::class
+    ]
+)
 interface ApplicationComponent {
 
     @Component.Builder
@@ -18,5 +22,5 @@ interface ApplicationComponent {
         fun build(): ApplicationComponent
     }
 
-    fun inject(app: WeatherApplication)
+    fun inject(weatherFeedActivity: WeatherFeedActivity)
 }

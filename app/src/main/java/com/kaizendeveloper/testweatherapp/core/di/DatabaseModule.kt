@@ -19,4 +19,8 @@ class DatabaseModule {
             WeatherDatabase.DATABASE_NAME
         ).build()
     }
+
+    @Provides
+    @Singleton
+    fun provideWeatherDao(db: WeatherDatabase) = db.weatherDao()
 }
