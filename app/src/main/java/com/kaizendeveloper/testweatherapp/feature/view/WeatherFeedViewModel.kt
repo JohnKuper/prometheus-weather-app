@@ -21,7 +21,7 @@ import javax.inject.Inject
 class WeatherFeedViewModel @Inject constructor(
     private val weatherRepository: NetworkWeatherRepository,
     private val preferencesHelper: FeedPreferencesHelper,
-    private val unitsFormatter: FeedFormatter
+    private val feedFormatter: FeedFormatter
 ) : ViewModel() {
 
     var language: FeedLanguage
@@ -44,7 +44,7 @@ class WeatherFeedViewModel @Inject constructor(
 
     val weatherFeed: LiveData<List<WeatherItemData>> =
         Transformations.map(weatherRepository.weatherEntities) { entities ->
-            entities.map { WeatherItemData.fromEntity(it, unitsFormatter) }
+            entities.map { WeatherItemData.fromEntity(it, feedFormatter) }
         }
 
     val failure: LiveData<Failure> = MutableLiveData()

@@ -1,0 +1,20 @@
+{
+  "latitude": 51.500334,
+  "longitude": -0.085013,
+  "timezone": "Europe/London",
+  "currently": {
+    "temperature": 18.72,
+    "summary": "Clear",
+    "windSpeed": 2.69,
+    "humidity": 0.48
+  },
+  "minutely": {
+    "summary": "Clear for the hour."
+  },
+  "hourly": {
+    "summary": "Light rain later this evening."
+  },
+  "flags": {
+    "units": "si"
+  }
+}

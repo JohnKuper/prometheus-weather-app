@@ -10,7 +10,7 @@ ext {
     roomVersion = '1.1.1'
     retrofit_version = '2.3.0'
     dagger = '2.15'
-    okhttp_logging_interceptor_version = '3.8.1'
+    okhtt3_version = '3.8.1'
 }
 
 android {
@@ -59,7 +59,8 @@ dependencies {
     // Network
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhtt3_version"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okhtt3_version"
 
     // Google play services
     implementation "com.google.android.gms:play-services-maps:$playServices"
