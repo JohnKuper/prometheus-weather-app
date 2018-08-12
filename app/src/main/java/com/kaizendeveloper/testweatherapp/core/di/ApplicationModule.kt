@@ -2,6 +2,7 @@ package com.kaizendeveloper.testweatherapp.core.di
 
 import android.app.Application
 import android.content.Context
+import com.kaizendeveloper.testweatherapp.core.common.FeedFormatter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,4 +22,8 @@ class ApplicationModule {
     fun provideContext(application: Application): Context {
         return application
     }
+
+    @Provides
+    @Singleton
+    fun provideUnitsFormatter() = FeedFormatter()
 }

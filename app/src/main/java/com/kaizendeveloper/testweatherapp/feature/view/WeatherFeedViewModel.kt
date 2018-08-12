@@ -5,22 +5,23 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.kaizendeveloper.testweatherapp.core.common.FeedFormatter
 import com.kaizendeveloper.testweatherapp.core.common.FeedPreferencesHelper
 import com.kaizendeveloper.testweatherapp.core.extensions.notifyProgress
 import com.kaizendeveloper.testweatherapp.core.extensions.requireValue
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
+import com.kaizendeveloper.testweatherapp.feature.api.FeedLanguage
+import com.kaizendeveloper.testweatherapp.feature.api.FeedUnits
 import com.kaizendeveloper.testweatherapp.feature.api.NetworkWeatherRepository
-import com.kaizendeveloper.testweatherapp.feature.model.FeedLanguage
-import com.kaizendeveloper.testweatherapp.feature.model.FeedUnits
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class WeatherFeedViewModel @Inject constructor(
-    //TODO Change to WeatherRepository
     private val weatherRepository: NetworkWeatherRepository,
-    private val preferencesHelper: FeedPreferencesHelper
+    private val preferencesHelper: FeedPreferencesHelper,
+    private val unitsFormatter: FeedFormatter
 ) : ViewModel() {
 
     var language: FeedLanguage
@@ -43,7 +44,7 @@ class WeatherFeedViewModel @Inject constructor(
 
     val weatherFeed: LiveData<List<WeatherItemData>> =
         Transformations.map(weatherRepository.weatherEntities) { entities ->
-            entities.map { WeatherItemData.fromEntity(it) }
+            entities.map { WeatherItemData.fromEntity(it, unitsFormatter) }
         }
 
     val failure: LiveData<Failure> = MutableLiveData()

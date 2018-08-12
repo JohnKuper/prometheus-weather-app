@@ -1,8 +1,12 @@
-package com.kaizendeveloper.testweatherapp.feature.model
+package com.kaizendeveloper.testweatherapp.feature.api
+
+import com.google.gson.annotations.SerializedName
 
 enum class FeedUnits(val code: String) {
     AUTO("auto"),
+    @SerializedName("si")
     SI("si"),
+    @SerializedName("us")
     US("us");
 
     companion object {

@@ -1,6 +1,7 @@
 package com.kaizendeveloper.testweatherapp.core.db
 
 import android.arch.persistence.room.Entity
+import com.kaizendeveloper.testweatherapp.feature.api.FeedUnits
 import com.kaizendeveloper.testweatherapp.feature.api.WeatherData
 
 @Entity(
@@ -15,20 +16,24 @@ data class WeatherEntity(
     val currentlySummary: String,
     val windSpeed: Float,
     val humidity: Float,
-    val minutelySummary: String?
+    val minutelySummary: String?,
+    val units: FeedUnits
 ) {
 
     companion object {
+
         fun fromData(weatherData: WeatherData): WeatherEntity {
+            val currently = weatherData.currently
             return WeatherEntity(
                 latitude = weatherData.latitude,
                 longitude = weatherData.longitude,
                 timezone = weatherData.timezone,
-                temperature = weatherData.currently.temperature,
-                currentlySummary = weatherData.currently.summary,
-                windSpeed = weatherData.currently.windSpeed,
-                humidity = weatherData.currently.humidity,
-                minutelySummary = weatherData.minutely?.summary
+                temperature = currently.temperature,
+                currentlySummary = currently.summary,
+                windSpeed = currently.windSpeed,
+                humidity = currently.humidity,
+                minutelySummary = weatherData.minutely?.summary,
+                units = weatherData.flags.units
             )
         }
     }

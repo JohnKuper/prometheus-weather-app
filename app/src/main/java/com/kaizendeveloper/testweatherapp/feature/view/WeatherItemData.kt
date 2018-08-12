@@ -1,5 +1,6 @@
 package com.kaizendeveloper.testweatherapp.feature.view
 
+import com.kaizendeveloper.testweatherapp.core.common.FeedFormatter
 import com.kaizendeveloper.testweatherapp.core.db.WeatherEntity
 
 data class WeatherItemData(
@@ -13,12 +14,12 @@ data class WeatherItemData(
 ) {
 
     companion object {
-        //TODO add converter for different units (temperature, wind speed)
-        fun fromEntity(entity: WeatherEntity): WeatherItemData {
+
+        fun fromEntity(entity: WeatherEntity, formatter: FeedFormatter): WeatherItemData {
             return WeatherItemData(
-                latLong = "${entity.latitude},${entity.longitude}",
+                latLong = formatter.concatCoordinates(entity.latitude, entity.longitude),
                 timezone = entity.timezone,
-                temperature = entity.temperature.toString(),
+                temperature = formatter.formatTemperature(entity.temperature, entity.units),
                 currentlySummary = entity.currentlySummary,
                 windSpeed = entity.windSpeed.toString(),
                 humidity = entity.humidity.toString(),

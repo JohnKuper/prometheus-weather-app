@@ -2,8 +2,8 @@ package com.kaizendeveloper.testweatherapp.core.common
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.kaizendeveloper.testweatherapp.feature.model.FeedLanguage
-import com.kaizendeveloper.testweatherapp.feature.model.FeedUnits
+import com.kaizendeveloper.testweatherapp.feature.api.FeedLanguage
+import com.kaizendeveloper.testweatherapp.feature.api.FeedUnits
 import javax.inject.Inject
 import javax.inject.Singleton
 

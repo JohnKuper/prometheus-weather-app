@@ -12,7 +12,9 @@ data class WeatherData(
     @SerializedName("currently")
     val currently: Currently,
     @SerializedName("minutely")
-    val minutely: Minutely?
+    val minutely: Minutely?,
+    @SerializedName("flags")
+    val flags: Flags
 )
 
 data class Currently(
@@ -29,4 +31,9 @@ data class Currently(
 data class Minutely(
     @SerializedName("summary")
     val summary: String
+)
+
+data class Flags(
+    @SerializedName("units")
+    val units: FeedUnits
 )

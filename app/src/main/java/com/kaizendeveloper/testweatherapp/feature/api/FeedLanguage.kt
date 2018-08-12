@@ -1,4 +1,4 @@
-package com.kaizendeveloper.testweatherapp.feature.model
+package com.kaizendeveloper.testweatherapp.feature.api
 
 enum class FeedLanguage(val code: String) {
     EN("en"),

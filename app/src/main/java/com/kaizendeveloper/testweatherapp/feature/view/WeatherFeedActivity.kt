@@ -19,8 +19,8 @@ import com.kaizendeveloper.testweatherapp.core.extensions.failure
 import com.kaizendeveloper.testweatherapp.core.extensions.observe
 import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
-import com.kaizendeveloper.testweatherapp.feature.model.FeedLanguage
-import com.kaizendeveloper.testweatherapp.feature.model.FeedUnits
+import com.kaizendeveloper.testweatherapp.feature.api.FeedLanguage
+import com.kaizendeveloper.testweatherapp.feature.api.FeedUnits
 import kotlinx.android.synthetic.main.activity_weather_feed.feed
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_weather_feed.add_location as addLocation
