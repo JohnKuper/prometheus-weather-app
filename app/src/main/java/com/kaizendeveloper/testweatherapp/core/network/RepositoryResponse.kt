@@ -7,7 +7,7 @@ class RepositoryResponse<out T> private constructor(
     private val _result: T? = null
 ) {
 
-    private val isSuccessful: Boolean = _error == null && _result != null
+    val isSuccessful: Boolean = _error == null && _result != null
 
     fun handle(onError: (Failure) -> Unit = {}, onResult: (T) -> Unit = {}) {
         if (isSuccessful) {
