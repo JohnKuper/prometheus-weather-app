@@ -15,7 +15,6 @@ import com.google.android.gms.location.places.ui.PlacePicker
 import com.kaizendeveloper.testweatherapp.R
 import com.kaizendeveloper.testweatherapp.WeatherApplication
 import com.kaizendeveloper.testweatherapp.core.common.FeedPreferencesHelper
-import com.kaizendeveloper.testweatherapp.core.extensions.failure
 import com.kaizendeveloper.testweatherapp.core.extensions.observe
 import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
@@ -69,7 +68,7 @@ class WeatherFeedActivity : AppCompatActivity() {
         weatherFeedViewModel = viewModel(viewModelFactory) {
             observe(weatherFeed, ::populateFeed)
             observe(inProgress) { updateProgress(it ?: false) }
-            failure(failure, ::handleFailure)
+            observe(failure, ::handleFailure)
         }
     }
 
