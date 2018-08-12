@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/language_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:checkable="false"
+            android:enabled="false"
+            android:title="@string/menu_select_language"/>
+        <item
+            android:id="@+id/menu_english"
+            android:title="@string/menu_english"/>
+        <item
+            android:id="@+id/menu_french"
+            android:title="@string/menu_french"/>
+        <item
+            android:id="@+id/menu_spanish"
+            android:title="@string/menu_spanish"/>
+        <item
+            android:id="@+id/menu_german"
+            android:title="@string/menu_german"/>
+    </group>
+
+    <group
+        android:id="@+id/units_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:checkable="false"
+            android:enabled="false"
+            android:title="@string/menu_select_units"/>
+
+        <item
+            android:id="@+id/menu_units_auto"
+            android:title="@string/menu_auto_units"/>
+        <item
+            android:id="@+id/menu_units_si"
+            android:title="@string/menu_si_units"/>
+        <item
+            android:id="@+id/menu_units_us"
+            android:title="@string/menu_us_units"/>
+    </group>
+
+</menu>

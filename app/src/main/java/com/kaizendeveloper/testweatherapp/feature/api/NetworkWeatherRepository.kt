@@ -19,23 +19,34 @@ class NetworkWeatherRepository @Inject constructor(
 
     val weatherEntities: LiveData<List<WeatherEntity>> = weatherDao.getAll()
 
-    override fun addLocation(location: LatLng): Single<RepositoryResponse<WeatherData>> {
-        return processWeather(location) { weatherDao.insert(WeatherEntity.fromData(it)) }
+    override fun addLocation(
+        location: LatLng,
+        lang: String,
+        units: String
+    ): Single<RepositoryResponse<WeatherData>> {
+        return processWeather(location, lang, units) { weatherDao.insert(WeatherEntity.fromData(it)) }
     }
 
-    override fun updateLocation(location: LatLng): Single<RepositoryResponse<WeatherData>> {
-        return processWeather(location) { weatherDao.update(WeatherEntity.fromData(it)) }
+    override fun updateLocation(
+        location: LatLng,
+        lang: String,
+        units: String
+    ): Single<RepositoryResponse<WeatherData>> {
+        return processWeather(location, lang, units) { weatherDao.update(WeatherEntity.fromData(it)) }
     }
 
     private fun processWeather(
-        location: LatLng, onSuccess: (WeatherData) -> Unit
+        location: LatLng,
+        lang: String,
+        units: String,
+        onSuccess: (WeatherData) -> Unit
     ): Single<RepositoryResponse<WeatherData>> {
-        return weatherService.getWeather(BuildConfig.API_KEY, location.concatCoordinates())
+        return weatherService.getWeather(BuildConfig.API_KEY, location.concatCoordinates(), lang, units)
             .doOnSuccess { onSuccess(it) }
             .flatMap {
                 Single.just(RepositoryResponse.success(it))
-            }.onErrorResumeNext {
-                Single.just(handleError(it))
+            }.onErrorReturn {
+                handleError(it)
             }
     }
 

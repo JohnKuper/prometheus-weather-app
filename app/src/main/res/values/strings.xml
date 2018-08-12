@@ -7,4 +7,14 @@
     <string name="no_network_connection">No network available, please check your connection</string>
     <string name="something_went_wrong">Something went wrong. Try again later</string>
     <string name="duplicated_location">Chosen location is already added</string>
+
+    <string name="menu_select_language">Select language</string>
+    <string name="menu_english">English</string>
+    <string name="menu_french">French</string>
+    <string name="menu_spanish">Spanish</string>
+    <string name="menu_german">German</string>
+    <string name="menu_select_units">Select units</string>
+    <string name="menu_auto_units">Auto</string>
+    <string name="menu_si_units">SI</string>
+    <string name="menu_us_units">US</string>
 </resources>

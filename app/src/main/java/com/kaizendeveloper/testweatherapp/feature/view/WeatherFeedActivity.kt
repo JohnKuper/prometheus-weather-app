@@ -4,17 +4,23 @@ import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.kaizendeveloper.testweatherapp.R
 import com.kaizendeveloper.testweatherapp.WeatherApplication
+import com.kaizendeveloper.testweatherapp.core.common.FeedPreferencesHelper
 import com.kaizendeveloper.testweatherapp.core.extensions.failure
 import com.kaizendeveloper.testweatherapp.core.extensions.observe
 import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
+import com.kaizendeveloper.testweatherapp.feature.model.FeedLanguage
+import com.kaizendeveloper.testweatherapp.feature.model.FeedUnits
 import kotlinx.android.synthetic.main.activity_weather_feed.feed
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_weather_feed.add_location as addLocation
@@ -26,9 +32,13 @@ class WeatherFeedActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var preferencesHelper: FeedPreferencesHelper
     private lateinit var weatherFeedViewModel: WeatherFeedViewModel
 
     private val weatherAdapter = WeatherAdapter(WeatherItemDiffCallback())
+
+    private var isMenuOpenedFirstTime = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,24 +47,6 @@ class WeatherFeedActivity : AppCompatActivity() {
 
         setupViews()
         observeViewModel()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
-                val place = PlacePicker.getPlace(this, data)
-                weatherFeedViewModel.addLocation(place.latLng)
-            }
-        }
-    }
-
-    private fun observeViewModel() {
-        weatherFeedViewModel = viewModel(viewModelFactory) {
-            observe(weatherFeed, ::populateFeed)
-            observe(inProgress) { updateProgress(it ?: false) }
-            failure(failure, ::handleFailure)
-        }
     }
 
     private fun setupViews() {
@@ -71,6 +63,79 @@ class WeatherFeedActivity : AppCompatActivity() {
         refreshLayout.setOnRefreshListener {
             weatherFeedViewModel.updateFeed()
         }
+    }
+
+    private fun observeViewModel() {
+        weatherFeedViewModel = viewModel(viewModelFactory) {
+            observe(weatherFeed, ::populateFeed)
+            observe(inProgress) { updateProgress(it ?: false) }
+            failure(failure, ::handleFailure)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                val place = PlacePicker.getPlace(this, data)
+                weatherFeedViewModel.addLocation(place.latLng)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.weather_feed_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.isChecked = true
+        when (item.itemId) {
+            R.id.menu_english -> setLanguage(FeedLanguage.EN)
+            R.id.menu_french -> setLanguage(FeedLanguage.FR)
+            R.id.menu_spanish -> setLanguage(FeedLanguage.ES)
+            R.id.menu_german -> setLanguage(FeedLanguage.DE)
+            R.id.menu_units_auto -> setUnits(FeedUnits.AUTO)
+            R.id.menu_units_si -> setUnits(FeedUnits.SI)
+            R.id.menu_units_us -> setUnits(FeedUnits.US)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        if (isMenuOpenedFirstTime) {
+            setCheckedInitialMenuItems(menu)
+            isMenuOpenedFirstTime = false
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun setLanguage(language: FeedLanguage) {
+        weatherFeedViewModel.language = language
+    }
+
+    private fun setUnits(units: FeedUnits) {
+        weatherFeedViewModel.units = units
+    }
+
+    private fun setCheckedInitialMenuItems(menu: Menu) {
+        val language = FeedLanguage.fromCode(preferencesHelper.getLanguage())
+        val units = FeedUnits.fromCode(preferencesHelper.getUnits())
+        when (language) {
+            FeedLanguage.EN -> setChecked(menu, R.id.menu_english)
+            FeedLanguage.FR -> setChecked(menu, R.id.menu_french)
+            FeedLanguage.ES -> setChecked(menu, R.id.menu_spanish)
+            FeedLanguage.DE -> setChecked(menu, R.id.menu_german)
+        }
+        when (units) {
+            FeedUnits.AUTO -> setChecked(menu, R.id.menu_units_auto)
+            FeedUnits.SI -> setChecked(menu, R.id.menu_units_si)
+            FeedUnits.US -> setChecked(menu, R.id.menu_units_us)
+        }
+    }
+
+    private fun setChecked(menu: Menu, @IdRes itemId: Int) {
+        menu.findItem(itemId).isChecked = true
     }
 
     private fun populateFeed(list: List<WeatherItemData>?) {
