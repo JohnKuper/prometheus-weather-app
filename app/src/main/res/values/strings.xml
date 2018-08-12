@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TestWeatherApp</string>
 
+    <string name="weather_feed_activity_label">Prometheus</string>
     <string name="wind_speed_label">Wind Speed</string>
     <string name="humidity_label">Humidity</string>
 

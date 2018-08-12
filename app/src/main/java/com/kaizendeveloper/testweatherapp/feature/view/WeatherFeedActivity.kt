@@ -9,6 +9,7 @@ import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.location.places.ui.PlacePicker
@@ -52,6 +53,19 @@ class WeatherFeedActivity : AppCompatActivity() {
         feed.apply {
             adapter = weatherAdapter
             layoutManager = LinearLayoutManager(context)
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                    if (dy > 0 || dy < 0 && addLocation.isShown)
+                        addLocation.hide()
+                }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        addLocation.show()
+                    }
+                }
+            })
         }
 
         addLocation.setOnClickListener {
@@ -145,6 +159,7 @@ class WeatherFeedActivity : AppCompatActivity() {
         refreshLayout.isRefreshing = inProgress
     }
 
+    //TODO extract to failure handler
     private fun handleFailure(failure: Failure?) {
         when (failure) {
             is Failure.NetworkConnection -> showFailure(R.string.no_network_connection)
