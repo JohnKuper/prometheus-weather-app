@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.kaizendeveloper.testweatherapp.R
-import com.kaizendeveloper.testweatherapp.core.extensions.hide
-import com.kaizendeveloper.testweatherapp.core.extensions.show
 
 class WeatherAdapter(
     diffCallback: DiffUtil.ItemCallback<WeatherItemData>
@@ -29,13 +27,11 @@ class WeatherAdapter(
             currentlySummary.text = item.currentlySummary
             windSpeed.text = item.windSpeed
             humidity.text = item.humidity
-            minutelySummary.text = item.minutelySummary
 
             if (item.minutelySummary.isNullOrEmpty()) {
-                minutelySummary.hide()
+                secondSummary.text = item.hourlySummary
             } else {
-                minutelySummary.show()
-                minutelySummary.text = item.minutelySummary
+                secondSummary.text = item.minutelySummary
             }
         }
     }
@@ -45,7 +41,7 @@ class WeatherAdapter(
         val temperature: TextView = itemView.findViewById(R.id.temperature)
         val latLong: TextView = itemView.findViewById(R.id.lat_lng)
         val currentlySummary: TextView = itemView.findViewById(R.id.current_summary)
-        val minutelySummary: TextView = itemView.findViewById(R.id.minutely_summary)
+        val secondSummary: TextView = itemView.findViewById(R.id.second_summary)
         val windSpeed: TextView = itemView.findViewById(R.id.wind_speed)
         val humidity: TextView = itemView.findViewById(R.id.humidity)
     }

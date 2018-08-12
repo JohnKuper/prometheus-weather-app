@@ -68,7 +68,7 @@
 
         <TextView
             style="@style/Text.Caption"
-            android:id="@+id/minutely_summary"
+            android:id="@+id/second_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/spaceM"
@@ -81,7 +81,7 @@
             android:layout_height="24dp"
             android:background="@drawable/bg_rounded_square"
             android:backgroundTint="@color/color_wind"
-            app:layout_constraintTop_toBottomOf="@id/minutely_summary"/>
+            app:layout_constraintTop_toBottomOf="@id/second_summary"/>
 
         <TextView
             style="@style/Text.Primary"
@@ -89,10 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:paddingBottom="40dp"
+            android:paddingBottom="@dimen/space2XL"
             android:text="@string/wind_speed_label"
             app:layout_constraintLeft_toRightOf="@id/wind_color"
-            app:layout_constraintTop_toBottomOf="@id/minutely_summary"/>
+            app:layout_constraintTop_toBottomOf="@id/second_summary"/>
 
         <TextView
             style="@style/Text.Ghost"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/minutely_summary"
+            app:layout_constraintTop_toBottomOf="@id/second_summary"
             tools:text="1.4 KM/H"/>
 
         <View

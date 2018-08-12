@@ -17,6 +17,7 @@ data class WeatherEntity(
     val windSpeed: Float,
     val humidity: Float,
     val minutelySummary: String?,
+    val hourlySummary: String,
     val units: FeedUnits
 ) {
 
@@ -33,6 +34,7 @@ data class WeatherEntity(
                 windSpeed = currently.windSpeed,
                 humidity = currently.humidity,
                 minutelySummary = weatherData.minutely?.summary,
+                hourlySummary = weatherData.hourly.summary,
                 units = weatherData.flags.units
             )
         }

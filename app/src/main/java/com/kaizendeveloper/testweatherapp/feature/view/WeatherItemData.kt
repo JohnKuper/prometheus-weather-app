@@ -10,7 +10,8 @@ data class WeatherItemData(
     val currentlySummary: String,
     val windSpeed: String,
     val humidity: String,
-    val minutelySummary: String?
+    val minutelySummary: String?,
+    val hourlySummary: String
 ) {
 
     companion object {
@@ -23,7 +24,8 @@ data class WeatherItemData(
                 currentlySummary = entity.currentlySummary,
                 windSpeed = entity.windSpeed.toString(),
                 humidity = entity.humidity.toString(),
-                minutelySummary = entity.minutelySummary
+                minutelySummary = entity.minutelySummary,
+                hourlySummary = entity.hourlySummary
             )
         }
     }
