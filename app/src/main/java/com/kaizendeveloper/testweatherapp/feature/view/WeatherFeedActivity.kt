@@ -16,6 +16,7 @@ import com.google.android.gms.location.places.ui.PlacePicker
 import com.kaizendeveloper.testweatherapp.R
 import com.kaizendeveloper.testweatherapp.WeatherApplication
 import com.kaizendeveloper.testweatherapp.core.common.FeedPreferencesHelper
+import com.kaizendeveloper.testweatherapp.core.extensions.hide
 import com.kaizendeveloper.testweatherapp.core.extensions.observe
 import com.kaizendeveloper.testweatherapp.core.extensions.viewModel
 import com.kaizendeveloper.testweatherapp.core.failure.Failure
@@ -24,6 +25,7 @@ import com.kaizendeveloper.testweatherapp.feature.api.FeedUnits
 import kotlinx.android.synthetic.main.activity_weather_feed.feed
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_weather_feed.add_location as addLocation
+import kotlinx.android.synthetic.main.activity_weather_feed.empty_feed_hint as emptyFeedHint
 import kotlinx.android.synthetic.main.activity_weather_feed.refresh_layout as refreshLayout
 
 const val PLACE_PICKER_REQUEST = 1
@@ -80,7 +82,7 @@ class WeatherFeedActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         weatherFeedViewModel = viewModel(viewModelFactory) {
-            observe(weatherFeed, ::populateFeed)
+            observe(weatherFeed) { populateFeed(it ?: emptyList()) }
             observe(inProgress) { updateProgress(it ?: false) }
             observe(failure, ::handleFailure)
         }
@@ -151,8 +153,11 @@ class WeatherFeedActivity : AppCompatActivity() {
         menu.findItem(itemId).isChecked = true
     }
 
-    private fun populateFeed(list: List<WeatherItemData>?) {
-        weatherAdapter.submitList(list)
+    private fun populateFeed(list: List<WeatherItemData>) {
+        if (list.isNotEmpty()) {
+            emptyFeedHint.hide()
+            weatherAdapter.submitList(list)
+        }
     }
 
     private fun updateProgress(inProgress: Boolean) {

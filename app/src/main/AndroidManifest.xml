@@ -11,7 +11,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".feature.view.WeatherFeedActivity"
-            android:label="@string/weather_feed_activity_label"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

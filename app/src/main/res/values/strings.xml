@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">TestWeatherApp</string>
+    <string name="app_name">Prometheus</string>
 
-    <string name="weather_feed_activity_label">Prometheus</string>
     <string name="wind_speed_label">Wind Speed</string>
     <string name="humidity_label">Humidity</string>
+    <string name="please_add_location">Please add a location</string>
 
     <string name="no_network_connection">No network available, please check your connection</string>
     <string name="something_went_wrong">Something went wrong. Try again later</string>
